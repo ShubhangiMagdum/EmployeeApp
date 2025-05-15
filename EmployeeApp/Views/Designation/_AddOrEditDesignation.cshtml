@@ -1,0 +1,39 @@
+﻿<style>
+    label.error {
+        color: red;
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+
+
+    <div class="container">
+        <form id="designForm">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Name</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" id="DesignationName" name="DesignationName" class="form-control" placeholder="Enter Designation Name">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Description</label>
+                </div>
+                <div class="col-md-8">
+                    <textarea rows="4" id="DesignationDescription" name="DesignationDescription" class="form-control" placeholder="Enter Designation Description"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <button type="submit" id="btnSubmit" class="btn btn-success mt-3" onclick="submitForm()"> <i class="fa-solid fa-floppy-disk mx-2"></i>Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+

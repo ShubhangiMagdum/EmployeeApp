@@ -1,0 +1,133 @@
+﻿@model EmployeeApp.Models.ViewModel.VMRating
+
+@{
+    ViewBag.Title = "AddReview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<link href="~/Content/css/design.css" rel="stylesheet" />
+
+@Html.Partial("_Notification")
+<style>
+    .stars i {
+        font-size: 24px;
+        cursor: pointer;
+        color: #ccc;
+    }
+
+        .stars i.active {
+            color: gold;
+        }
+</style>
+
+
+<div class="container mb-4 mt-5" id="designContent">
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (!(ViewBag.HideForm ?? false))
+    {
+        <div class="row justify-content-center">
+            <h3><i class="fa-solid fa-star mx-2" style="color:goldenrod;"></i>Add Review</h3>
+            <div class="col-lg-11">
+                <form id="empForm" controller="Review" action="Create" method="post">
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label class="form-label"> Employee Name</label>
+                            <div class="row mx-2">
+                                <input type="hidden" id="EmployeeId" name="EmployeeId" value="@Model.EmployeeId">
+                                <input type="text" id="EmployeeName" name="EmployeeName" class="form-control" value="@Model.EmployeeName" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">Department Name</label>
+                            <div class="row mx-2">
+                                <input type="hidden" id="DepartmentId" name="DepartmentId" value="@Model.DepartmentId">
+                                <input type="text" id="DepartmentName" name="DepartmentName" class="form-control" value="@Model.DepartmentName" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label class="form-label">Designation Name</label>
+                            <div class="row mx-2">
+                                <input type="hidden" id="DesignationId" name="DesignationId" value="@Model.DesignationId">
+                                <input type="text" id="DesignationName" name="DesignationName" class="form-control" value="@Model.DesignationName" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <div class="row mx-2">
+                                    <h6 class="mt-4">Rate Your Experience</h6>
+                                    <div class="col-lg-7">
+                                        <div class="container mt-2">
+                                      
+                                            <div class="stars">
+                                                <i class="fa fa-star" data-value="1"></i>
+                                                <i class="fa fa-star" data-value="2"></i>
+                                                <i class="fa fa-star" data-value="3"></i>
+                                                <i class="fa fa-star" data-value="4"></i>
+                                                <i class="fa fa-star" data-value="5"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-5">
+                                        <p class="mt-2 me-2" id="ratingText" name="ratingText">⭐ 1 star – "Poor"</p>
+                                        <input type="hidden" id="selectedRating" name="Ratings" value="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+                        
+
+                        <div class="col-lg-2 text-align-right">
+                            <label class="form-label">Review</label>
+                           
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="row mx-2">
+                                <textarea type="text" id="Review" name="Review" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" id="btnSubmit" class="btn btn-success mt-4"><i class="fa-solid fa-floppy-disk mx-2"></i>Submit</button>
+                </form>
+            </div>
+        </div>
+    }
+    </div>
+
+@section Scripts {
+    <script>
+     
+        $(document).ready(function () {
+            $(".stars i").click(function () {
+                var rating = $(this).data("value");
+                $(".stars i").removeClass("active");
+                $(this).prevAll().addBack().addClass("active");
+
+                var messages = ["⭐ 1 star – 'Poor'", "⭐ 2 stars – 'Fair'", "⭐ 3 stars – 'Good'", "⭐ 4 stars – 'Very Good'", "⭐ 5 stars – 'Excellent'"];
+                $("#ratingText").text(messages[rating - 1]);
+
+                // Update hidden input value
+                $("#selectedRating").val(rating);
+            });
+        });
+    </script>
+    <script src="~/Scripts/js/review.js"></script>
+
+}

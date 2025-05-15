@@ -1,0 +1,87 @@
+﻿.buttons-excel {
+    background-color: #28a745 !important;
+    color: white !important;
+    width: 100px !important;
+}
+
+.buttons-pdf {
+    background-color: #17a2b8 !important;
+    color: white !important;
+    width: 100px !important;
+}
+
+.buttons-print {
+    background-color: #007bff !important;
+    color: white !important;
+    width: 100px !important;
+}
+
+.buttons-excel:hover {
+    background-color: #28a745 !important;
+    color: white !important;
+    width: 100px !important;
+}
+
+.buttons-pdf:hover {
+    background-color: #17a2b8 !important;
+    color: white !important;
+    width: 100px !important;
+}
+
+.buttons-print:hover {
+    background-color: #007bff !important;
+    color: white !important;
+    width: 100px !important;
+}
+
+
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-dropdown .dr {
+        background-color: #ffc107;
+        color: #fff;
+        border: none;
+        padding: 6px 12px;
+        font-size: 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+}
+
+.custom-dropdown .dr:hover {
+       background-color: #0056b3;
+}
+
+.custom-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    z-index: 999;
+    padding: 8px 0;
+    right: 0; /* Open from the right side */
+}
+
+    .custom-dropdown-content li {
+        list-style: none;
+    }
+
+.custom-dropdown-content li a {
+     display: block;
+     padding: 10px 16px;
+     text-decoration: none;
+     color: #333;
+     font-size: 14px;
+     transition: background-color 0.2s, color 0.2s;
+}
+
+.custom-dropdown-content li a:hover {
+     background-color: #f1f1f1;
+     color: #007bff;
+}

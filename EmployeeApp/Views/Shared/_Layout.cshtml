@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="~/Content/css/layout.css" rel="stylesheet" />
+</head>
+<body>
+
+    @*Navbar*@
+    <nav class="custom-navbar">
+        <div class="nav-container">
+            <div class="nav-brand">Employee Dashboard</div>
+            <div class="nav-profile">
+
+                <div class="profile-dropdown">
+                    @*<p>@Session["UserName"]</p>
+                        <img src="/Images/profile/@Session["UserProfileImage"]" alt="Profile" class="profile-img" id="profileToggle" />*@
+                    <div class="d-flex align-items-center gap-3">
+                        <p class="mb-0">@Session["UserName"]</p>
+                        <img src="/Images/profile/@Session["UserProfileImage"]" alt="Profile" class="profile-img" id="profileToggle" />
+                    </div>
+
+                    <ul class="dropdown-menu pt-2 px-2" id="profileMenu">
+                        @*<li class="mx-2 mb-2"><i class="fa fa-user"></i> @Session["UserName"]</li>*@
+                        <li class="mx-2"><i class="fas fa-envelope"></i> @Session["UserEmail"]</li>
+                        <li><a href="@Url.Action("Logout", "Account")"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    @*Sidebar*@
+    <div id="sidebar" class="open">
+        <ul>
+
+
+            @if (Session["UserRole"] != null && Session["UserRole"].ToString() == "Admin")
+            {
+                <li><a href="@Url.Action("Dashboard", "Admin")"> Dashboard </a></li>
+                <li><a href="@Url.Action("Index", "Department")"> Manage Department </a></li>
+                <li><a href="@Url.Action("Index", "Designation")"> Manage Designation  </a></li>
+                <li><a href="@Url.Action("Index", "Employee")"> Manage Employees </a></li>
+                <li><a href="@Url.Action("Index", "Leave")"> Manage Leave </a></li>
+                <li><a href="@Url.Action("Index", "Review")"> Manage Review </a></li>
+
+            }
+            else if (Session["UserRole"] != null && Session["UserRole"].ToString() == "Employee")
+            {
+
+                <li><a href="@Url.Action("Dashboard", "Employee")"> Dashboard </a></li>
+                <li><a href="@Url.Action("Profile", "Employee")">My Profile</a></li>
+                <li><a href="@Url.Action("Index", "Leave")"> Leave </a></li>
+                <li><a href="@Url.Action("AddReview", "Review")"> Review </a></li>
+            }
+        </ul>
+    </div>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+  
+    <div style="position:fixed;bottom:0;left:0;width:100%;background-color:black;color:white;padding-top:10px;">
+
+
+        <footer>
+            <p class="foot">&copy; @DateTime.Now.Year - Employee Salary Slip Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            //profile Image
+            $("#profileToggle").click(function (e) {
+                e.stopPropagation(); // Prevent click from bubbling
+                $("#profileMenu").toggle();
+            });
+
+            $(document).click(function () {
+                $("#profileMenu").hide(); // Hide menu if clicked outside
+            });
+
+            $(".dropdown-menu").click(function (e) {
+                e.stopPropagation(); // Keep menu open when clicking inside
+            });
+
+
+
+        });
+    </script>
+
+
+    <script src="//cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+
+    <!-- JSZip for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- pdfmake for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="~/Scripts/js/toastr.js" asp-append-version="true"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

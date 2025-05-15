@@ -1,0 +1,132 @@
+﻿
+@model EmployeeApp.Models.ViewModel.VMSalary
+@{
+    ViewBag.Title = "AddSalary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/css/design.css" rel="stylesheet" />
+<style>
+    label.error {
+        color: red;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    </style>
+
+<div class="container mt-5" id="designContent">
+   
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+            <form id="addSalary" class="p-4 bg-white">
+                <h3 class="text-center mb-4">Salary </h3>
+                <input type="hidden" id="EmployeeId" name="EmployeeId" class="form-control" value="@ViewBag.EmployeeId">
+
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label class="form-label">Employee Name</label>
+
+                        <div class="row mx-2">
+                            <input type="text" value="@ViewBag.EmployeeName" name="EmployeeName" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Basic Salary</label>
+                        <div class="row mx-2">
+                            <input type="text" id="Basic" name="Basic" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label class="form-label">HRA</label>
+                        <div class="row mx-2">
+                            <input type="text" id="HRA" name="HRA" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Allowances</label>
+                        <div class="row mx-2">
+                            <input type="text" id="Allowances" name="Allowances" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label class="form-label">Deductions</label>
+                        <div class="row mx-2">
+                            <input type="text" id="Deductions" name="Deductions" class="form-control">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Net Salary</label>
+                        <div class="row mx-2">
+                            <input type="text" id="NetSalary" name="NetSalary" class="form-control" readonly>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="monthDropdown">Select Month:</label>
+                        <div class="row mx-2">
+
+                            <select class="form-select" id="Month" name="Month">
+                                <!-- Months will be populated dynamically -->
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label> Year:</label>
+                        <div class="row mx-2">
+
+                            <input type="text" id="Year" class="form-control" name="Year" readonly>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="text-center mt-4">
+                    <button type="submit" id="btnSubmit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @*Datatable*@
+    <div class="row">
+        <table id="tblSalary" class="table table-bordered mt-2">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Basic</th>
+                    <th>HRA</th>
+                    <th>Allowances</th>
+                    <th>Deductions</th>
+                    <th>Month</th>
+                    <th>Year</th>
+                    <th>NetSalary</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+@section Scripts {
+   
+    <script src="~/Scripts/js/salary.js"></script>
+}

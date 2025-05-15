@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #content {
+        padding: 46px 48px 48px 64px;
+        transition: margin-left 0.3s ease-in-out;
+        background-color: #F3F3F9;
+        margin-right: -74px !important;
+    }
+
+    .card1 {
+        margin-bottom: 30px;
+        border: 0px;
+        border-radius: 0.625rem;
+        box-shadow: 6px 11px 41px -28px #a99de7;
+    }
+
+    .gradient-1{
+        background-image: linear-gradient(230deg, #759bff, #843cf6);
+    }
+
+    .card1 .card-body1 {
+        padding: 1.88rem 1.81rem;
+    }
+
+    .card-body1 {
+        flex: 1 1 auto;
+        padding: 1.25rem;
+    }
+
+    .card-title1 {
+        font-size: 17px;
+        font-weight: 500;
+        line-height: 18px;
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+
+    .gradient-2 {
+        background-image: linear-gradient(230deg, #fc5286, #fbaaa2);
+    }
+    .gradient-3 {
+        background-image: linear-gradient(230deg, #ffc480, #ff763b);
+    }
+    .gradient-4
+    {
+        background-image: linear-gradient(230deg, #0e4cfd, #6a8eff);
+    }
+</style>
+
+
+<div class="container-fluid mt-4" id="content">
+    <div class="row mt-4">
+        <div class="col-lg-3 col-sm-6">
+            <div class="card1 gradient-1">
+                <div class="card-body1 d-flex justify-content-between align-items-center">
+                    <span class="display-5 opacity-5 text-white"><i class="fa fa-user"></i></span>
+                    <div class="text-end">
+                        <h3 class="card-title1 text-white w-100">Total Employees</h3>
+                        <h2 class="text-white" id="employeeCount"></h2>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="card1 gradient-2">
+                <div class="card-body1 d-flex justify-content-between align-items-center">
+                    <span class="display-5 opacity-5 text-white"><i class="fa fa-file"></i></span>
+                    <div class="text-end">
+                        <h3 class="card-title1 text-white">Salary Slips</h3>
+                        <h2 class="text-white" id="salarySlipCount"></h2>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="card1 gradient-3">
+                <div class="card-body1 d-flex justify-content-between align-items-center">
+                    <span class="display-5 opacity-5 text-white"><i class="fa fa-file"></i></span>
+                    <div class="text-end">
+                        <h3 class="card-title1 text-white">Slips Issued</h3>
+                        <h2 class="text-white">1</h2>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="card1 gradient-4">
+                <div class="card-body1 d-flex justify-content-between align-items-center">
+                    <span class="display-5 opacity-5 text-white"><i class="fa fa-file"></i></span>
+                    <div class="text-end">
+                        <h3 class="card-title1 text-white">Pending Requests</h3>
+                        <h2 class="text-white" id="leaveCount"></h2>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-6">
+            <h5><i class="fa-solid fa-building mx-2"></i>Salary By Department</h5>
+            <div class="card border border-black p-3">
+                <canvas id="salaryChart" width="800" height="400"></canvas>
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+         
+               <div class="row">
+                   <div class="col-lg-10">
+                       <h5><i class="fas fa-id-badge mx-2"></i>Recent Salary Slip</h5>
+                   </div>
+                   <div class="col-lg-2">
+                       <a href="/Employee/Index" class="ms-3">View</a>
+                  </div>
+             
+           </div>
+            <div class="card border border-black p-3" id="tbldashbaord">
+               <!--Display Recent Salary Slip-->
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12 mt-5 mx-2"><h5><i class="fa-solid fa-briefcase mx-2"></i>Insights for Workforce Management</h5></div>
+        <div class="col-lg-12">
+           
+            <div style="display: flex; align-items: flex-start;">
+                <!-- Left side: Legend -->
+                <div class="col-lg-8" id="legendContent">
+                    
+
+                    <ul id="custom-legend" style="list-style: none; padding: 0; margin: 88px;"></ul>
+                </div>
+
+                <div class="col-lg-4">
+                    
+                    <!-- Right side: Pie Chart -->
+                    <canvas id="employeeChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+
+            @*<canvas id="employeeChart" width="250" height="250"></canvas>*@
+
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@section Scripts {
+    <script src="~/Scripts/js/adminDashboard.js"></script>
+}

@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "AddEmployee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/css/design.css" rel="stylesheet" />
+<style>
+    label.error {
+        color: red;
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="container mt-5" id="designContent">
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+            <form id="empforms" enctype="multipart/form-data" class="p-4 bg-white">
+                <h3 class="text-center mb-4">Employee Registration</h3>
+
+
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label class="form-label">Employee Name</label>
+                        <input type="hidden" id="EmployeeId" name="EmployeeId">
+                        <div class="row mx-2">
+
+                            <input type="text" id="EmployeeName" name="EmployeeName" class="form-control" placeholder="Enter Employee Name">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Email</label>
+                        <div class="row mx-2">
+                            <input type="email" id="Email" name="Email" class="form-control" placeholder="Enter email">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label class="form-label">Contact No</label>
+                        <div class="row mx-2">
+                            <input type="text" id="ContactNo" name="ContactNo" class="form-control" placeholder="Enter ContactNo">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Password</label>
+                        <div class="row mx-2">
+                            <input type="password" id="PasswordHash" name="PasswordHash" class="form-control" placeholder="Enter Password">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label class="form-label">Department Name</label>
+                        <div class="row mx-2">
+                            <select id="DrpDepartment" class="form-select" name="DepartmentId">
+                                <option>Select Department</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Designation Name</label>
+                        <div class="row mx-2">
+                            <select id="DrpDesignation" class="form-select" name="DesignationId">
+                                <option>Select Designation</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label class="form-label">Image</label>
+                        <div class="row mx-2">
+                            <input type="file" name="file" id="profileImg" class="form-control" accept="image/*">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <p id="previewText">Preview Image</p>
+                        <div class="row mx-2">
+                            <label id="uploadLabel" class="form-label text-danger">please upload the new image</label>
+                            <div id="preview" class="border p-2 text-center">
+                                <!-- Image preview will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="text-center mt-4">
+                    <button type="submit" id="btnSubmit" class="btn btn-success" onclick="AddEmployee()">Submit</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+ 
+
+    <script src="~/Scripts/js/employee.js"></script>
+    <script src="~/Scripts/js/priviewImage.js"></script>
+}

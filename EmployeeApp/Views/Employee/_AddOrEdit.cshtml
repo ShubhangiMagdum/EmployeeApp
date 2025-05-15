@@ -1,0 +1,118 @@
+﻿@model EmployeeApp.Models.Employee
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/css/design.css" rel="stylesheet" />
+<div class="container mt-5" id="designContent">
+    <div class="row">
+        <div class="col-lg-10">
+            <h2>Edit Employee</h2>
+        </div>
+        <div class=col-lg-2>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-11">
+
+                <form id="empForm" enctype="multipart/form-data">
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label class="form-label"> Employee Name</label>
+                            <div class="row mx-2">
+                                <input type="text" id="EmployeeName" name="EmployeeName" class="form-control" value="@Model.EmployeeName" />
+                            </div>
+                            </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">Email</label>
+                            <div class="row mx-2">
+                                <input type="email" id="Email" name="Email" class="form-control" value="@Model.Email" />
+                           </div>
+                            </div>
+                        </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label class="form-label">Contact No</label>
+                            <div class="row mx-2">
+                                <input type="text" id="ContactNo" name="ContactNo" class="form-control" value="@Model.ContactNo" />
+                          </div>
+                            </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">Password</label>
+                            <div class="row mx-2">
+                                <input type="text" id="PasswordHash" name="PasswordHash" class="form-control" value="@Model.PasswordHash" />
+                           </div>
+                            </div>
+                        </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <input type="hidden" id="ExistingDepartmentId" value="@ViewData["ExistingDepartmentId"]" />
+
+                            <label class="form-label">Department Name</label>
+                           
+                            <div class="form-group">
+                                <div class="row mx-2">
+                                    <select id="DrpDepartment" class="form-select" name="DepartmentId">
+                                        <option>Select Department</option>
+                                    </select>
+                                    <p id="existingDepartment" class="mt-2"></p>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="hidden" id="ExistingDesignationId" value="@ViewData["ExistingDesignationId"]" />
+                                <label class="form-label">Designation Name</label>
+                                <div class="form-group">
+                                    <div class="row mx-2">
+                                        <select id="DrpDesignation" class="form-select" name="DesignationId">
+                                            <option>Select Designation</option>
+                                        </select>
+                                        <p id="existingDesignation" class="mt-2"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+
+                            <label>Profile Image</label>
+
+                            <div id="imagePreview" class="mb-2">
+                                <div class="row mx-2">
+                                    @if (!string.IsNullOrEmpty(ViewBag.ImgPath) && System.IO.File.Exists(Server.MapPath("~/Images/profile/" + ViewBag.ImgPath)))
+                                    {
+                                        <img src="@Url.Content("~/Images/profile/" + ViewBag.ImgPath)" id="preImg" class="img-thumbnail" style="max-width: 150px;" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-danger" id="text">Existing image not available. Please upload a new image.</span>
+                                    }
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-lg-6 mt-5">
+                            <input type="file" name="profileImg" id="editprofileImg" class="form-control" />
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="EmployeeId" id="EmployeeId" value="@Model.EmployeeId" />
+                    <button type="submit" id="btnSubmit" class="btn btn-success mt-4" onclick="editEmployee(@Model.EmployeeId)">Submit</button>
+                </form>
+            </div>
+        </div>
+        </div>
+
+    </div>
+
+
+        @section Scripts {
+
+            <script src="~/Scripts/js/employee.js"></script>
+            <script src="~/Scripts/js/priviewImage.js"></script>
+        }

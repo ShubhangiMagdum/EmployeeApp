@@ -1,0 +1,91 @@
+﻿@model EmployeeApp.Models.EmployeeLeave
+@{
+    ViewBag.Title = "AddLeave";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/css/design.css" rel="stylesheet" /> 
+
+<div class="container mt-5" id="designContent">
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+            <form action="Create" controller="Leave" method="post" class="p-4 bg-white">
+                <h3 class="text-center mb-4">Add Leave</h3>
+
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label class="form-label">Employee Name</label>
+                        <input type="hidden" id="EmployeeId" name="EmployeeId" value="@Session["UserId"]">
+                        <div class="row mx-2">
+                            <input type="text" id="EmployeeName" name="EmployeeName" class="form-control" value="@Session["UserName"]" readonly>
+                          </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Type</label>
+                        <div class="row mx-2">
+                            <select id="LeaveType" class="form-select" name="LeaveType">
+                                <!-- Leave types will be added dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label class="form-label">Start Date</label>
+                        <div class="row mx-2">
+                            <input type="datetime-local" id="LeaveStartDate" name="LeaveStartDate" class="form-control" onchange="calculateDays()">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">End Date</label>
+                        <div class="row mx-2">
+                            <input type="datetime-local" id="LeaveEndDate" name="LeaveEndDate" class="form-control" onchange="calculateDays()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    
+                    <div class="col-lg-6">
+                        <label class="form-label">Reason</label>
+                        <div class="row mx-2">
+              
+                            <textarea id="Reason" name="Reason" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">TotalDays</label>
+                        <div class="row mx-2">
+                            <input type="text" id="TotalDays" name="TotalDays" class="form-control" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <!--<div class="col-lg-6">
+                        <label class="form-label">LeaveStatus</label>
+                        <div class="row mx-2">
+                            <select id="leaveStatus" class="form-select">-->
+                                <!-- Leave statuses will be added dynamically -->
+                            <!--</select>
+                        </div>
+                    </div>-->
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" id="btnSubmit" class="btn btn-success"><i class="fa-solid fa-floppy-disk mx-2"></i>Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    
+    <script src="~/Scripts/js/leave.js"></script>
+}
+

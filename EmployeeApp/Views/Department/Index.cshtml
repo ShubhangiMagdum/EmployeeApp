@@ -1,0 +1,58 @@
+﻿@model IEnumerable<EmployeeApp.Models.Department>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/css/design.css" rel="stylesheet" />
+
+<div class="container mb-4 mt-5" id="designContent">
+    <div class="row">
+        <div class="col-lg-9">
+            <h3><i class="fa-solid fa-building mx-2"></i>Department List</h3>
+        </div>
+        <div class=col-lg-3>
+            <button class="btn btn-primary mb-3" onclick="showModal(0)">Add Department</button>
+        </div>
+    </div>
+    <div class="row">
+        <table id="tblDepartment" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Department Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="depModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa-solid fa-building mx-2"></i>Department</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Partial view loads here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script src="~/Scripts/js/department.js"></script>
+
+}

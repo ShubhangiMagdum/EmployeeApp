@@ -1,0 +1,70 @@
+﻿@model EmployeeApp.Models.EmployeeLeave
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/css/design.css" rel="stylesheet" />
+
+@Html.Partial("_Notification")
+<div class="container mb-4 mt-4" id="designContent">
+    <div class="row">
+        <div class="col-lg-10">
+            <h3>Manage Leave</h3>
+            <!-- Embed Session ID in a hidden field -->
+            <input type="hidden" id="UserId" value="@Session["UserId"]">
+        </div>
+        <div class=col-lg-2>
+            <a class="btn btn-primary mb-3" href="javascript:void(0)" id="addleave">Add Leave</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <ul class="nav nav-tabs" id="leaveTabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-status="All" data-bs-toggle="tab" href="#leaveTab">All</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-status="Approved" data-bs-toggle="tab" href="#leaveTab">Approved</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-status="Pending" data-bs-toggle="tab" href="#leaveTab">Pending</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-status="Cancel" data-bs-toggle="tab" href="#leaveTab">Cancel</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="leaveTab">
+                <table id="tblLeave" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>SR. No.</th>
+                            <th>Leave Type</th>
+                            <th>Reason</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Total Days</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts {
+    <script src="~/Scripts/js/leave.js"></script>
+
+}
+
+

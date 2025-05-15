@@ -1,0 +1,222 @@
+﻿@model EmployeeApp.Models.ViewModel.VMEmployee
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/css/design.css" rel="stylesheet" />
+<style>
+    .circle-img {
+        width: 150px; /* Adjust size */
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover; /* Ensures the image fits properly */
+        border: 3px solid #ccc; /* Optional border */
+    }
+</style>
+
+<div class="container mt-5" id="designContent">
+    <div class="row mb-4">
+        <div class="col-lg-8">
+            <h2 id="heading">Profile</h2>
+        </div>
+        <div class="col-lg-2">
+
+            <a href="#" id="btnChangePassword">Change Password</a>
+
+        </div>
+        <div class="col-lg-2">
+
+            <button type="button" id="btnEdit" class="btn btn-outline-primary">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+        </div>
+    </div>
+    <div id="profileView">
+        <div class="row align-items-start">
+            <!-- Left Side: Profile Image -->
+            <div class="col-lg-4 text-center mb-4">
+                <img src="/Images/profile/@Model.profileImg" alt="Profile Picture" class="img-fluid circle-img" style="max-width: 200px;">
+            </div>
+
+            <!-- Right Side: Profile Details -->
+            <div class="col-lg-8">
+                <div class="row mb-3">
+                    <div class="col-lg-12">
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-user px-2"></i>
+                            <p class="mb-0">@Model.EmployeeName</p>
+                            <span class="mx-2"> | </span>
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-envelope px-2"></i>
+                                <p class="mb-0">@Model.Email</p>
+                            </div>
+                            <span class="mx-2"> | </span>
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-phone px-2"></i>
+                                <p class="mb-0">@Model.ContactNo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h6><b> Company Details </b> </h6>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fa-regular fa-building px-2"></i>
+                            <p class="mb-0">@Model.DepartmentName</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fa-solid fa-map-pin px-2"></i>
+                            <p class="mb-0">@Model.DesignationName</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Edit user details form -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div id="profileEditForm" class="p-4 border rounded bg-light" style="display: none;">
+                <form method="post" action="/Employee/Update" enctype="multipart/form-data">
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+
+                            <label>Profile Image</label>
+
+                            <div id="imagePreview" class="mb-2">
+                                <div class="row mx-2">
+                                    @if (!string.IsNullOrEmpty(Model.profileImg) && System.IO.File.Exists(Server.MapPath("~/Images/profile/" + Model.profileImg)))
+                                    {
+                                        <img src="@Url.Content("~/Images/profile/" + Model.profileImg)" id="preImg" class="img-thumbnail" style="max-width: 150px;" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-danger" id="text">Existing image not available. Please upload a new image.</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mt-5">
+                            <input type="file" name="profileImg" id="editprofileImg" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <input type="hidden" name="EmployeeId" class="form-control" value="@Model.EmployeeId">
+
+                        <!-- Three equal-width columns -->
+                        <div class="col-lg-4">
+                            <label class="form-label">Employee Name</label>
+                            <input type="text" name="EmployeeName" class="form-control" value="@Model.EmployeeName" required>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="Email" class="form-control" value="@Model.Email" required>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label class="form-label">Contact No</label>
+                            <input type="text" name="ContactNo" class="form-control" value="@Model.ContactNo" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <!-- Three-column layout -->
+                        <div class="col-lg-4">
+                            <input type="hidden" id="ExistingDepartmentId" value="@Model.DepartmentId" />
+
+                            <label class="form-label">Department</label>
+                            <select id="DrpDepartment" class="form-select" name="DepartmentId">
+                                <option>Select Department</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <input type="hidden" id="ExistingDesignationId" value="@Model.DesignationId" />
+
+                            <label class="form-label">Designation</label>
+                            <select id="DrpDesignation" class="form-select" name="DesignationId">
+                                <option>Select Designation</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-4">
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-auto">
+                            <button type="button" id="btnCancel" class="btn btn-secondary">
+                                <i class="fa-solid fa-xmark"></i> Cancel
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa-solid fa-floppy-disk"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" id="passwordformcontainer" style="display:none;">
+        <form id="changePasswordForm">
+            <div class="mb-3 d-flex align-items-center">
+                <label for="originalPassword" class="form-label me-2">Original Password</label>
+                <input type="password" id="CurrentPassword" name="CurrentPassword" class="form-control" required>
+                <span id="currentPasswordError" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 d-flex align-items-center">
+                <label for="newPassword" class="form-label me-2">New Password</label>
+                <input type="password" id="NewPassword" name="NewPassword" class="form-control" required>
+                <span id="newPasswordError" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 d-flex align-items-center">
+                <label for="confirmPassword" class="form-label me-2">Confirm Password</label>
+                <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" required>
+                <span id="confirmPasswordError" class="text-danger"></span>
+            </div>
+
+
+            <button type="button" id="btnpassCancel" class="btn btn-secondary">
+                <i class="fa-solid fa-xmark"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">Change Password</button>
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success mt-3">@ViewBag.Message</div>
+            }
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+  
+    <script src="~/Scripts/js/profile.js"></script>
+    <script src="~/Scripts/js/priviewImage.js"></script>
+}

@@ -1,0 +1,44 @@
+﻿@model EmployeeApp.Models.Employee
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/css/design.css" rel="stylesheet" />
+
+<div class="container mb-4 mt-4" id="designContent">
+    <div class="row">
+        <div class="col-lg-10">
+            <h2>Salary List</h2>
+        </div>
+        <div class=col-lg-2>
+            <a class="btn btn-primary mb-3" href="javascript:void(0)" id="addsal">Add Salary</a>
+        </div>
+    </div>
+</div>
+
+
+
+<table id="tblSalary" class="table table-bordered mt-2">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Employee Name</th>
+            <th>Basic</th>
+            <th>HRA</th>
+            <th>Allowances</th>
+            <th>Deductions</th>
+            <th>Month</th>
+            <th>Year</th>
+            <th>NetSalary</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="~/Scripts/js/salary.js"></script>
+
+}

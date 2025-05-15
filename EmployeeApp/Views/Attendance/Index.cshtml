@@ -1,0 +1,43 @@
+﻿@model EmployeeApp.Models.Attendance
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/css/design.css" rel="stylesheet" />
+
+<div class="container mb-4 mt-4" id="designContent">
+    <div class="row">
+        <div class="col-lg-9">
+            <h2>Attendance List</h2>
+        </div>
+        <div class="col-lg-3">
+
+            <input type="hidden" id="UserId" value="@Session["UserId"]">
+            <a class="btn btn-primary mb-3" href="javascript:void(0)" id="addattendance">Add Attendance</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <table id="tblAttendance" class="table table-bordered mt-2">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script src="~/Scripts/js/attendance.js"></script>
+
+}
+

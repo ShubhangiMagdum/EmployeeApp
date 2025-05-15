@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+
+
+<div class="container-fluid login-container" >
+    <!-- Left side illustration -->
+    <div class="illustration">
+        <img src="~/Images/bglogin1.png" alt="Login" class="img-fluid" />
+    </div>
+    <!-- Login form -->
+    <div class="login-box shadow p-4 rounded bg-white">
+        <h5> Secure Login | Access Your Account </h5>
+        <form id="myform" novalidate onsubmit="return Login(event);">
+            <div class="mb-3">
+                <label for="username" class="form-label">Email</label>
+                @*<input type="email" class="form-control" id="username" name="username" placeholder="Enter Email"><i class="fa-solid fa-envelope"></i>
+            <span class="error text-danger" id="emailError"></span>*@
+                <div class="input-group">
+
+                    <input type="email" class="form-control" id="username" name="username" placeholder="Enter Email">
+                    <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+                    <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                        <i class="fa-solid  fa-eye" id="toggleIcon"></i>
+                    </button>
+                </div>
+                <span class="error text-danger" id="passwordError"></span>
+            </div>
+
+
+                <button type="submit" class="btn btn-primary w-100 d-flex justify-content-between">
+                    Sign In
+                    <i class="fa-solid fa-right-to-bracket ms-auto"></i>
+                </button>
+           
+                </form>
+
+
+      
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,70 @@
+﻿@model EmployeeApp.Models.Employee
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/css/employee.css" rel="stylesheet" />
+
+<link href="~/Content/css/design.css" rel="stylesheet" />
+
+
+@Html.Partial("_Notification")
+
+
+<div class="container mb-4 mt-4" id="designContent">
+    <div class="row">
+        @*@if (TempData["success"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["success"]
+            </div>
+        }
+
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }*@
+
+    </div>
+    <div class="row">
+        <div class="col-lg-9">
+            <h3><i class="fa-solid fa-circle-user mx-2"></i>Employee List</h3>
+        </div>
+        <div class=col-lg-3>
+            <a class="btn btn-primary mb-3" href="javascript:void(0)" id="addemp"><i class="fa-solid fa-circle-user mx-2"></i>Add Employee</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <table id="tblEmployee" class="table table-bordered mt-2">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Employee Name</th>
+                    <th>Email</th>
+                    <th>Contant No</th>
+                    <th>Passward</th>
+                    <th>Department Name</th>
+                    <th>Designation Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    <script src="~/Scripts/js/employee.js"></script>
+
+
+}

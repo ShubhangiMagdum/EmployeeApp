@@ -1,0 +1,64 @@
+﻿@model List<EmployeeApp.Models.ViewModel.VMRating>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/css/design.css" rel="stylesheet" />
+<style>
+    .review-card {
+        max-width: 500px;
+        margin: auto;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .stars i {
+        color: gold;
+        font-size: 24px;
+    }
+</style>
+
+<div class="container mb-4 mt-5" id="designContent">
+    @Html.Partial("_Notification")
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+
+                <!-- Two columns in one row -->
+                <div class="review-card mt-3 p-3 border rounded">
+                    <div class="stars pb-3">
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            if (i < item.Ratings)
+                            {
+                                <i class="fa fa-star text-warning"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-star text-secondary"></i>
+                            }
+                        }
+                    </div>
+                    <h4><b><em>@item.EmployeeName</em></b>,</h4>
+                    <span>@item.DesignationName </span> |   <span>@item.DepartmentName </span>
+
+
+                    <p class="mt-3">@item.Review</p>
+
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="~/Scripts/js/review.js"></script>
+
+}

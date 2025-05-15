@@ -1,0 +1,94 @@
+﻿@model EmployeeApp.Models.ViewModel.VMSalary
+@{
+    ViewBag.Title = "EditSalary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+            <form id="EditSalary" class="p-4 bg-white">
+                <h3 class="text-center mb-4">Salary </h3>
+                <input type="hidden" id="EmployeeId" name="EmployeeId" class="form-control" value="@Model.EmployeeId">
+                <input type="hidden" id="SalaryId" name="SalaryId" class="form-control" value="@Model.SalaryId">
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label class="form-label">Employee Name</label>
+
+                        <div class="row mx-2">
+                            <input type="text" value="@Model.EmployeeName" name="EmployeeName" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Basic Salary</label>
+                        <div class="row mx-2">
+                            <input type="text" id="Basic" name="Basic" class="form-control" value="@Model.Basic">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label class="form-label">HRA</label>
+                        <div class="row mx-2">
+                            <input type="text" id="HRA" name="HRA" class="form-control" value="@Model.HRA">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Allowances</label>
+                        <div class="row mx-2">
+                            <input type="text" id="Allowances" name="Allowances" class="form-control" value="@Model.Allowances">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-4">
+                        <label class="form-label">Deductions</label>
+                        <div class="row mx-2">
+                            <input type="text" id="Deductions" name="Deductions" class="form-control" value="@Model.Deductions">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="monthDropdown">Select Month:</label>
+                        <div class="row mx-2">
+                            <div class="container mt-4">
+                                <input type="hidden" id="ExistingMonth" value="@Model.Month" />
+                                <select class="form-select" id="Month" name="Month">
+                                    <!-- Months will be populated dynamically -->
+
+                                </select>
+                                <p id="existingMon" class="mt-2"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="yearDropdown">Select Year:</label>
+                        <div class="row mx-2">
+                            <div class="container">
+                                <input type="text" id="Year" class="form-control" name="Year" readonly value="@Model.Year">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+
+                </div>
+
+
+                <div class="text-center mt-4">
+                    <button type="submit" id="btnSubmit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script src="~/Scripts/js/salary.js"></script>
+}
