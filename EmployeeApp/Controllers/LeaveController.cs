@@ -23,6 +23,7 @@ namespace EmployeeApp.Controllers
             return View();
         }
 
+       
         [HttpGet]
         public ActionResult AddLeave()
         {
@@ -93,22 +94,25 @@ namespace EmployeeApp.Controllers
                 string role = Session["UserRole"].ToString();
 
                 var dataList = db.EmployeesLeave
-                     .Where(leave =>
-                         (role == "Admin") ||
-                         (leave.EmployeeId == empId &&
-                          (leave.LeaveStatus == "Pending"))
-                     )
-                     .Select(leave => new
+                 .Where(leave =>
+                     (role == "Admin") ||
+                     (leave.EmployeeId == empId && leave.LeaveStatus == "Pending")
+                 )
+                 .Join(db.Employees, 
+                     leave => leave.EmployeeId, 
+                     emp => emp.EmployeeId, 
+                     (leave, emp) => new
                      {
                          leaveId = leave.LeaveId,
                          employeeId = leave.EmployeeId,
+                         employeeName = emp.EmployeeName, 
                          leaveType = leave.LeaveType,
                          reason = leave.Reason,
                          leaveStartDate = leave.LeaveStartDate,
                          leaveEndDate = leave.LeaveEndDate,
                          totalDays = leave.TotalDays,
                          leaveStatus = leave.LeaveStatus,
-                         role=role
+                         role = role
                      })
                      .ToList();
 

@@ -14,29 +14,32 @@
 
 <div class="container mb-4 mt-4" id="designContent">
     <div class="row">
-        @*@if (TempData["success"] != null)
-        {
-            <div class="alert alert-success">
-                @TempData["success"]
-            </div>
-        }
-
-        @if (TempData["error"] != null)
-        {
-            <div class="alert alert-danger">
-                @TempData["Error"]
-            </div>
-        }*@
-
-    </div>
-    <div class="row">
         <div class="col-lg-9">
             <h3><i class="fa-solid fa-circle-user mx-2"></i>Employee List</h3>
+        </div>
+        <div class=col-lg-3>
+            </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-lg-9">
+            <a href="@Url.Action("ExportToExcel", "Employee")" class="btn btn-success">
+                <i class="fa fa-file-excel"></i> Export to Excel
+            </a>
+
+            <a href="@Url.Action("ExportEmployeePDF", "Employee")" class="btn btn-danger">
+                <i class="fa fa-file-pdf"></i> Export PDF
+            </a>
+
+            <a href="@Url.Action("Print", "Employee")" class="btn btn-primary" target="_blank">
+                <i class="fa fa-print"></i> Print Employee List
+            </a>
         </div>
         <div class=col-lg-3>
             <a class="btn btn-primary mb-3" href="javascript:void(0)" id="addemp"><i class="fa-solid fa-circle-user mx-2"></i>Add Employee</a>
         </div>
     </div>
+
 
     <div class="row">
         <table id="tblEmployee" class="table table-bordered mt-2">

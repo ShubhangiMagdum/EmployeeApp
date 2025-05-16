@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var userRole = Session["UserRole"] != null ? Session["UserRole"].ToString() : "";
+
 }
 
 
@@ -15,8 +18,12 @@
             <!-- Embed Session ID in a hidden field -->
             <input type="hidden" id="UserId" value="@Session["UserId"]">
         </div>
+
         <div class=col-lg-2>
-            <a class="btn btn-primary mb-3" href="javascript:void(0)" id="addleave">Add Leave</a>
+            @if (userRole == "Employee")
+            {
+                <a class="btn btn-primary mb-3" href="javascript:void(0)" id="addleave">Add Leave</a>
+            }
         </div>
     </div>
 
@@ -42,6 +49,7 @@
                     <thead>
                         <tr>
                             <th>SR. No.</th>
+                            <th>Employee Name</th>
                             <th>Leave Type</th>
                             <th>Reason</th>
                             <th>Start Date</th>

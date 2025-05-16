@@ -161,32 +161,6 @@ function loadEmployeeList() {
             datatype: "json"
 
         },
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'excelHtml5',
-                title: 'Employee List',
-                exportOptions: {
-                    columns: ':not(:first-child):not(:last-child)'
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                title: 'Employee List',
-                exportOptions: {
-                    columns: ':not(:first-child):not(:last-child)'
-                },
-                orientation: 'landscape',
-                pageSize: 'A4'
-            },
-            {
-                extend: 'print',
-                title: 'Employee List',
-                exportOptions: {
-                    columns: ':not(:first-child):not(:last-child)'
-                }
-            }
-        ],
         "columns": [
             {
                 "data": null,

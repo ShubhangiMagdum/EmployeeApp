@@ -1,0 +1,69 @@
+﻿@model IEnumerable<EmployeeApp.Models.ViewModel.VMEmployee>
+@{
+    ViewBag.Title = "PrintEmployeeList";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Employee Print List</title>
+    <link href="~/Content/css/print.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+    <h2>Employee List</h2>
+    <button class="btn-btn-sucess" id="btnprint" onclick="window.print()">Print</button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>Employee Name</th>
+                <th>Email</th>
+                <th>Contact No</th>
+                <th>Password</th>
+                <th>Designation</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var emp = Model.ElementAt(i);
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td><img src="/Images/profile/@emp.profileImg" class="img-fluid w-50 h-50"></td>
+                    <td>@emp.EmployeeName</td>
+                    <td>@emp.Email</td>
+                    <td>@emp.ContactNo</td>
+                    <td>@emp.PasswordHash</td>
+                    <td>@emp.DesignationName</td>
+                    <td>@emp.DepartmentName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Scripts.Render("~/bundles/bootstrap")
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+@section Scripts
+{
+    <script>
+        $('#btnPrint').on('click', function () {
+            var $btn = $(this);
+            $btn.hide();
+            window.print();
+            setTimeout(function () {
+                $btn.show();
+            }, 1000);
+        });
+    </script>
+
+}

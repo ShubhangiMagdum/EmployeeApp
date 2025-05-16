@@ -9,12 +9,13 @@ using EmployeeApp.Data;
 using EmployeeApp.Models.ViewModel;
 using EmployeeApp.Models;
 using System.IO;
-using System.Drawing.Drawing2D;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using EmployeeApp.Helper;
 using System.Web.UI.WebControls;
 using System.Drawing;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using ClosedXML.Excel;
 
 namespace EmployeeApp.Controllers
 {
@@ -484,5 +485,192 @@ namespace EmployeeApp.Controllers
             return Json(dataList, JsonRequestBehavior.AllowGet);
 
         }
+
+        //custom pdf file download 
+        public ActionResult ExportEmployeePDF()
+        {
+            MemoryStream ms = new MemoryStream();
+            Document document = new Document(PageSize.A4.Rotate(), 10f, 10f, 10f, 10f);
+            PdfWriter writer = PdfWriter.GetInstance(document, ms);
+            document.Open();
+
+            // Title
+          
+            var h4Font = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 24);
+
+            Paragraph headerTitle = new Paragraph("Employee List", h4Font);
+            headerTitle.SpacingAfter = 10f;
+            headerTitle.SpacingBefore = 10f;
+            document.Add(headerTitle);
+
+            document.Add(new Chunk("\n"));
+
+            // Table with 7 columns
+            PdfPTable table = new PdfPTable(7);
+            table.WidthPercentage = 100;
+            table.SetWidths(new float[] { 1f, 2f, 3f, 3f, 2f, 2f, 2f });
+
+            // Table Header
+            var boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
+            string[] headers = { "Image", "Name", "Email", "Contact", "Password", "Designation", "Department" };
+
+
+            foreach (var header in headers)
+            {
+                PdfPCell cell = new PdfPCell(new Phrase(header, boldFont));
+                cell.BackgroundColor = BaseColor.YELLOW;
+                cell.Padding = 5f;                 // Add padding for spacing inside cell
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                table.AddCell(cell);
+            }
+
+            // Fetch Employees
+            var employees = (from e in db.Employees
+                             join d in db.Departments on e.DepartmentId equals d.DepartmentId
+                             join ds in db.Designations on e.DesignationId equals ds.DesignationId
+                             select new VMEmployee
+                             {
+                                 EmployeeName= e.EmployeeName,
+                                 Email= e.Email,
+                                 ContactNo=e.ContactNo,
+                                 PasswordHash = e.PasswordHash,
+                                 profileImg = e.profileImg,
+                                 DesignationName = ds.DesignationName,
+                                 DepartmentName = d.DepartmentName
+                             }).ToList();
+
+            foreach (var emp in employees)
+            {
+                // Image Cell
+                string imgPath = Server.MapPath("~/Images/profile/" + emp.profileImg);
+                if (!System.IO.File.Exists(imgPath))
+                {
+                    imgPath = Server.MapPath("~/Images/Login.png"); // fallback image
+                }
+
+                iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(imgPath);
+                image.ScaleAbsolute(40f, 40f);
+                PdfPCell imgCell = new PdfPCell(image);
+                imgCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                imgCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                imgCell.Padding = 5f;
+                table.AddCell(imgCell);
+
+                // Text Cells
+                PdfPCell nameCell = new PdfPCell(new Phrase(emp.EmployeeName));
+                nameCell.Padding = 5f;
+                table.AddCell(nameCell);
+
+                PdfPCell emailCell = new PdfPCell(new Phrase(emp.Email));
+                emailCell.Padding = 5f;
+                table.AddCell(emailCell);
+
+                PdfPCell ContactNoCell = new PdfPCell(new Phrase(emp.ContactNo));
+                ContactNoCell.Padding = 5f;
+                table.AddCell(ContactNoCell);
+
+                PdfPCell PasswordHashCell = new PdfPCell(new Phrase(emp.PasswordHash));
+                PasswordHashCell.Padding = 5f;
+                table.AddCell(PasswordHashCell);
+
+                PdfPCell DesignationNameCell = new PdfPCell(new Phrase(emp.DesignationName));
+                DesignationNameCell.Padding = 5f;
+                table.AddCell(DesignationNameCell);
+
+                PdfPCell DepartmentNameCell = new PdfPCell(new Phrase(emp.DepartmentName));
+                DepartmentNameCell.Padding = 5f;
+                table.AddCell(DepartmentNameCell);
+
+               
+            }
+
+
+            document.Add(table);
+            document.Close();
+
+            return File(ms.ToArray(), "application/pdf", "EmployeeList.pdf");
+
+
+        }
+
+        //Export to excel File
+        public ActionResult ExportToExcel()
+        {
+            // Fetch employee data
+            var employees = (from e in db.Employees
+                             join d in db.Departments on e.DepartmentId equals d.DepartmentId
+                             join ds in db.Designations on e.DesignationId equals ds.DesignationId
+                             select new VMEmployee
+                             {
+                                EmployeeName= e.EmployeeName,
+                                 Email=e.Email,
+                                 ContactNo=e.ContactNo,
+                                 PasswordHash=e.PasswordHash,
+                                 DesignationName = ds.DesignationName,
+                                 DepartmentName = d.DepartmentName
+                             }).ToList();
+
+            // Create Excel package
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Employees");
+
+                // Header
+                worksheet.Cell(1, 1).Value = "Employee Name";
+                worksheet.Cell(1, 2).Value = "Email";
+                worksheet.Cell(1, 3).Value = "Contact No";
+                worksheet.Cell(1, 4).Value = "Password";
+                worksheet.Cell(1, 5).Value = "Designation";
+                worksheet.Cell(1, 6).Value = "Department";
+
+                // Data
+                for (int i = 0; i < employees.Count; i++)
+                {
+                    var emp = employees[i];
+                    worksheet.Cell(i + 2, 1).Value = emp.EmployeeName;
+                    worksheet.Cell(i + 2, 2).Value = emp.Email;
+                    worksheet.Cell(i + 2, 3).Value = emp.ContactNo;
+                    worksheet.Cell(i + 2, 4).Value = emp.PasswordHash;
+                    worksheet.Cell(i + 2, 5).Value = emp.DesignationName;
+                    worksheet.Cell(i + 2, 6).Value = emp.DepartmentName;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    stream.Position = 0;
+                    return File(stream.ToArray(),
+                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                "EmployeeList.xlsx");
+                }
+
+            }
+
+        }
+
+        //print employee list data 
+        public ActionResult Print()
+        {
+            // Fetch employee data
+            var employees = (from e in db.Employees
+                             join d in db.Departments on e.DepartmentId equals d.DepartmentId
+                             join ds in db.Designations on e.DesignationId equals ds.DesignationId
+                             select new VMEmployee
+                             {
+                                 EmployeeName = e.EmployeeName,
+                                 Email = e.Email,
+                                 ContactNo = e.ContactNo,
+                                 PasswordHash = e.PasswordHash,
+                                 DesignationName = ds.DesignationName,
+                                 DepartmentName = d.DepartmentName,
+                                 profileImg=e.profileImg
+                                 
+                             }).ToList();
+            return View("PrintEmployeeList", employees);
+
+
+        }
+
     }
 }

@@ -76,16 +76,23 @@ function loadEmployeeLeaveList() {
         "ajax": {
             url: "/Leave/GetAll",
             type: "GET",
-            datatype: "json"
+            datatype: "json",
+            //dataSrc: function (json) {
+            //    console.log("DataTable AJAX data:", json);
+            //    return json; // important to return the data for DataTable to use
+            //}
+            
         },
         "columns": [
             {
                 "data": null,
                 "render": function (data, type, row, meta) {
                     return meta.row + 1;
+                   
                 },
                 "width": "5%"
             },
+            { "data": "employeeName", "width": "10%" },
             { "data": "leaveType", "width": "10%" },
             { "data": "reason", "width": "20%" },
             {
